@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/core";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { authentication } from "../firebase";
+import { authentication } from "../../firebase";
 import { signOut } from "firebase/auth";
 
-const HomeScreen = () => {
+const Drivers = () => {
   const navigation = useNavigation();
 
   const handleSignOut = () => {
@@ -17,6 +17,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text>Drivers Screen</Text>
       <Text>Email: {authentication.currentUser?.email}</Text>
       <TouchableOpacity style={styles.button} onPress={handleSignOut}>
         <Text style={styles.buttonText}>Sign out</Text>
@@ -25,7 +26,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default Drivers;
 
 const styles = StyleSheet.create({
   container: {

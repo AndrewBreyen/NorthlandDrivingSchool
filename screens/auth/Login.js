@@ -13,38 +13,38 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { ROUTES } from "../../constants";
 
-const LoginScreen = () => {
+const Login = (props) => {
+  const { navigation } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.navigate(ROUTES.DRIVERS)
       }
     });
 
     return unsubscribe;
   }, []);
 
-  const handleRegister = () => {
-    createUserWithEmailAndPassword(authentication, email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log(user.email);
-        alert(user.email + " registered successfully!");
-      })
-      .catch((error) => alert(error.message));
-  };
+  // const handleRegister = () => {
+  //   createUserWithEmailAndPassword(authentication, email, password)
+  //     .then((userCredentials) => {
+  //       const user = userCredentials.user;
+  //       console.log(user.email);
+  //       alert(user.email + " registered successfully!");
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
   const handleLogin = () => {
     signInWithEmailAndPassword(authentication, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log(user.email + " signed in!");
+        navigation.navigate(ROUTES.DRIVERS)
       })
       .catch((error) => alert(error.message));
   };
@@ -68,21 +68,32 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
+        {/* LOGIN BUTTON */}
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+        {/* REGISTER BUTTON */}
         <TouchableOpacity
-          onPress={handleRegister}
+          onPress={() => navigation.navigate(ROUTES.REGISTER)}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
+        </TouchableOpacity>
+
+        {/* FORGOT PASSWORD BUTTON */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ROUTES.FORGOT_PASSWORD)}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Forgot Password</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default LoginScreen;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {

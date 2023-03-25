@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
-const ForgotPassword = () => {
+const Settings = () => {
   const navigation = useNavigation();
 
   return (
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default Settings;
 
 const styles = StyleSheet.create({
   container: {

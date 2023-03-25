@@ -3,9 +3,13 @@ export default {
   REGISTER: 'Register',
   FORGOT_PASSWORD: 'Forgot Password',
 
-  HOME: 'Home',
-  HOME_TAB: 'Home Tab',
-  HOME_DRAWER: 'Home Drawer',
+  DRIVERS: 'Drivers',
+  DRIVERS_TAB: 'Drivers Tab',
+  DRIVERS_DRAWER: 'Drivers Drawer',
+
+  QUICKDETAILS: 'Quick Details',
+  QUICKDETAILS_TAB: 'Quick Details Tab',
+  QUICKDETAILS_DRAWER: 'Quick Details Drawer',
 
   WALLET: 'Wallet',
   WALLET_DRAWER: 'Wallet Drawer',
