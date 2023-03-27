@@ -11,16 +11,9 @@ export default {
   QUICKDETAILS_TAB: 'Quick Details Tab',
   QUICKDETAILS_DRAWER: 'Quick Details Drawer',
 
-  WALLET: 'Wallet',
-  WALLET_DRAWER: 'Wallet Drawer',
-
-  NOTIFICATIONS: 'Notifications',
-  NOTIFICATIONS_DRAWER: 'Notifications Drawer',
-
+  ADDNEWDRIVER: 'Add New Driver',
+  
   SETTINGS: 'Settings',
-  ACCOUNT_SETTINGS: 'Account Settings',
-  SETTINGS_NAVIGATOR: 'Settings Navigator',
-
-  SETTINGS_DETAIL: 'Settings Detail',
+  
   PROFILE: 'My Profile',
 };
