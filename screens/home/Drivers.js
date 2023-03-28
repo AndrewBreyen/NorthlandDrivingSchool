@@ -10,7 +10,7 @@ import { React, useEffect, useState } from "react";
 import { db } from "../../firebase";
 import styles from "../../constants/styles";
 import { collection, getDocs } from "firebase/firestore";
-import { Card, Button } from "@rneui/themed";
+import DriverCard from "../../components/DriverCard";
 
 const Drivers = () => {
   const navigation = useNavigation();
@@ -31,21 +31,18 @@ const Drivers = () => {
     fetchDrivers();
   }, []);
 
+  const handlePress = (driver) => {
+    navigation.navigate('DriverDetails', { driver });
+  };
+
   return (
-    <ScrollView>
-      {drivers.map((d) => {
-        return (
-          <Card containerStyle={{ marginTop: 15 }}>
-            <Card.Title>{d.name}</Card.Title>
-            <Card.Divider />
-            <Text>
-              {d.phone_number}
-            </Text>
-            <TouchableOpacity><Text></Text></TouchableOpacity>
-          </Card>
-        );
-      })}
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView>
+        {drivers.map((driver) => (
+          <DriverCard key={driver.id} driver={driver} onPress={() => handlePress(driver)}/>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
