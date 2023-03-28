@@ -14,4 +14,5 @@ export default {
   // Drawer Routes
   ADDNEWDRIVER: 'Add New Driver',
   SETTINGS: 'Settings',
+  ABOUT: 'About',
 };

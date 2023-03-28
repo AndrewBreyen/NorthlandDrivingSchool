@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { authentication } from "../../firebase";
+import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -24,7 +24,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const unsubscribe = authentication.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.navigate(ROUTES.DRIVERS);
       }
@@ -44,29 +44,28 @@ const Login = (props) => {
   // };
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(authentication, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         navigation.navigate(ROUTES.DRIVERS);
       })
       .catch((error) => {
-        if (Platform.OS == "web"){
-          alert("Error occurred. Error message: "+ error.message)
-        }
-        else{
-          Alert.alert('Error occurred', 'Error message: '+ error.message)
+        if (Platform.OS == "web") {
+          alert("Error occurred. Error message: " + error.message);
+        } else {
+          Alert.alert("Error occurred", "Error message: " + error.message);
         }
       });
   };
 
   const handleLoginDemo = () => {
-    signInWithEmailAndPassword(authentication, 'a@a.com', 'qwerty')
+    signInWithEmailAndPassword(auth, "a@a.com", "qwerty")
       .then((userCredentials) => {
         const user = userCredentials.user;
         navigation.navigate(ROUTES.DRIVERS);
       })
       .catch((error) => {
-        alert(error.message)
+        alert(error.message);
       });
   };
 

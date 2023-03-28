@@ -6,6 +6,7 @@ export {default as QuickDetails} from './home/QuickDetails';
 // Drawer Screens
 export {default as AddNewDriver} from './home/AddNewDriver';
 export {default as Settings} from './home/Settings';
+export {default as About} from './About'
 
 
 // Auth Screens

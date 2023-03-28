@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { authentication } from "../../firebase";
+import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -22,25 +23,31 @@ const ForgotPassword = (props) => {
   const [email, setEmail] = useState("");
 
   const handleForgotPassword = () => {
-    sendPasswordResetEmail(authentication, email)
+    sendPasswordResetEmail(auth, email)
       .then(() => {
-        if (Platform.OS == "web"){
-          alert("Password Reset Successfully. Please check your email and reset your password at the link provided.")
-        }
-        else{
-          Alert.alert('Password Reset Successfully', 'Please check your email and reset your password at the link provided.')
+        if (Platform.OS == "web") {
+          alert(
+            "Password Reset Successfully. Please check your email and reset your password at the link provided."
+          );
+        } else {
+          Alert.alert(
+            "Password Reset Successfully",
+            "Please check your email and reset your password at the link provided."
+          );
         }
         navigation.goBack();
       })
       .catch((error) => {
-        alert('Error occurred. Error message: '+ error.message)
-      })
+        alert("Error occurred. Error message: " + error.message);
+      });
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
-      <Text>Please enter the email of the account to send a password reset email</Text>
+        <Text>
+          Please enter the email of the account to send a password reset email
+        </Text>
         <TextInput
           placeholder="Email"
           value={email}

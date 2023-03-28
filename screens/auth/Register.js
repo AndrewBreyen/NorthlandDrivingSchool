@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { authentication } from "../../firebase";
+import { auth } from "../../firebase";
 import styles from "../../constants/styles";
 
 const Drivers = () => {

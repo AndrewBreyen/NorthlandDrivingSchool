@@ -1,6 +1,6 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { AddNewDriver, Settings } from "../screens";
+import { AddNewDriver, Settings, About } from "../screens";
 import { COLORS, ROUTES } from "../constants";
 import BottomTabNavigator from "./BottomTabNavigator";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -44,6 +44,15 @@ function DrawerNavigator() {
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="ios-settings" size={18} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={ROUTES.ABOUT}
+        component={About}
+        options={{
+          drawerIcon: ({ focused, color, size }) => (
+            <Icon name="ios-information-circle" size={18} color={color} />
           ),
         }}
       />
