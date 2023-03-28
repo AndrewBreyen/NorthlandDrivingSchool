@@ -1,10 +1,16 @@
 import { useNavigation } from "@react-navigation/core";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { React, useEffect, useState } from "react";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 import styles from "../../constants/styles";
 import { collection, getDocs } from "firebase/firestore";
-import { breakpoints } from "@mui/system";
+import { Card, Button } from "@rneui/themed";
 
 const Drivers = () => {
   const navigation = useNavigation();
@@ -18,7 +24,6 @@ const Drivers = () => {
         id: doc.id,
       }));
       setDrivers(newData);
-      console.log(drivers[0].name);
     });
   };
 
@@ -27,13 +32,28 @@ const Drivers = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Drivers Screen</Text>
-        {drivers.map((d) => {
-          return <Text>{d.name}</Text>;
-        })}
-    </View>
+    <ScrollView>
+      {drivers.map((d) => {
+        return (
+          <Card containerStyle={{ marginTop: 15 }}>
+            <Card.Title>{d.name}</Card.Title>
+            <Card.Divider />
+            <Text>
+              {d.phone_number}
+            </Text>
+            <TouchableOpacity><Text></Text></TouchableOpacity>
+          </Card>
+        );
+      })}
+    </ScrollView>
   );
 };
 
 export default Drivers;
+
+const Styles = StyleSheet.create({
+  container: {
+    alignContent: "center",
+    margin: 37,
+  },
+});
