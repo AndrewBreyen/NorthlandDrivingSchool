@@ -1,20 +1,17 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import { useNavigation } from "@react-navigation/core";
+import { Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { authentication } from "../../firebase";
+import styles from "../../constants/styles";
 
-const Register = () => {
+const Drivers = () => {
+  const navigation = useNavigation();
+
   return (
-    <SafeAreaView
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Register</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.subheaderText}>Register has not been implemented.</Text>
+    </View>
   );
 };
 
-export default Register;
-
-const styles = StyleSheet.create({});
+export default Drivers;

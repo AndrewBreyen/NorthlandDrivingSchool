@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import styles from "../../constants/styles";
 
 const AddNewDriver = () => {
   const navigation = useNavigation();
@@ -13,12 +14,3 @@ const AddNewDriver = () => {
 };
 
 export default AddNewDriver;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-});

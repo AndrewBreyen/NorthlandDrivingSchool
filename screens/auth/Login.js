@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -14,6 +16,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { ROUTES } from "../../constants";
+import styles from "../../constants/styles";
 
 const Login = (props) => {
   const { navigation } = props;
@@ -23,7 +26,7 @@ const Login = (props) => {
   useEffect(() => {
     const unsubscribe = authentication.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate(ROUTES.DRIVERS)
+        navigation.navigate(ROUTES.DRIVERS);
       }
     });
 
@@ -44,13 +47,34 @@ const Login = (props) => {
     signInWithEmailAndPassword(authentication, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        navigation.navigate(ROUTES.DRIVERS)
+        navigation.navigate(ROUTES.DRIVERS);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        if (Platform.OS == "web"){
+          alert("Error occurred. Error message: "+ error.message)
+        }
+        else{
+          Alert.alert('Error occurred', 'Error message: '+ error.message)
+        }
+      });
+  };
+
+  const handleLoginDemo = () => {
+    signInWithEmailAndPassword(authentication, 'a@a.com', 'qwerty')
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        navigation.navigate(ROUTES.DRIVERS);
+      })
+      .catch((error) => {
+        alert(error.message)
+      });
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Text style={styles.headerText}>Welcome!</Text>
+      <Text style={styles.subheaderText}>Please log in.</Text>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -88,56 +112,14 @@ const Login = (props) => {
         >
           <Text style={styles.buttonOutlineText}>Forgot Password</Text>
         </TouchableOpacity>
+
+        {/* LOGIN AS a@a.com BUTTON */}
+        <TouchableOpacity onPress={handleLoginDemo} style={styles.button}>
+          <Text style={styles.buttonText}>REMOVEME: Login as a@a.com</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: {
-    width: "80%",
-  },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: "#7c0eb3",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#7c0eb3",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#7c0eb3",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});

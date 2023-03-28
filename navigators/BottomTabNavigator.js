@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ROUTES } from "../constants";
+import { COLORS, ROUTES } from "../constants";
 import { Drivers, QuickDetails } from "../screens";
 import Icon from 'react-native-vector-icons/Ionicons';
 

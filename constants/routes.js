@@ -1,19 +1,17 @@
 export default {
+  // Auth Routes
   LOGIN: 'Login',
   REGISTER: 'Register',
   FORGOT_PASSWORD: 'Forgot Password',
 
+  // Drivers Routes
   DRIVERS: 'Drivers',
   DRIVERS_TAB: 'Drivers Tab',
   DRIVERS_DRAWER: 'Drivers Drawer',
 
   QUICKDETAILS: 'Quick Details',
-  QUICKDETAILS_TAB: 'Quick Details Tab',
-  QUICKDETAILS_DRAWER: 'Quick Details Drawer',
 
+  // Drawer Routes
   ADDNEWDRIVER: 'Add New Driver',
-  
   SETTINGS: 'Settings',
-  
-  PROFILE: 'My Profile',
 };
