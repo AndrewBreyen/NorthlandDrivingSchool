@@ -5,14 +5,17 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { React, useEffect, useState } from "react";
 import { db } from "../../firebase";
 import styles from "../../constants/styles";
-import { collection, getDocs } from "firebase/firestore";
+import COLORS from "../../constants/colors";
+import { collection, getDocs, Timestamp } from "firebase/firestore";
 import DriverCard from "../../components/DriverCard";
 
 const Drivers = () => {
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const [drivers, setDrivers] = useState([]);
   const driversCollectionRef = collection(db, "drivers");
@@ -24,6 +27,7 @@ const Drivers = () => {
         id: doc.id,
       }));
       setDrivers(newData);
+      setLoading(false);
     });
   };
 
@@ -32,16 +36,24 @@ const Drivers = () => {
   }, []);
 
   const handlePress = (driver) => {
-    navigation.navigate('DriverDetails', { driver });
+    navigation.navigate("DriverDetails", { driver });
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {drivers.map((driver) => (
-          <DriverCard key={driver.id} driver={driver} onPress={() => handlePress(driver)}/>
-        ))}
-      </ScrollView>
+      {loading ? (
+        <ActivityIndicator size="large" color={COLORS.primary}/>
+      ) : (
+        <ScrollView>
+          {drivers.map((driver) => (
+            <DriverCard style={styles.container}
+              key={driver.id}
+              driver={driver}
+              onPress={() => handlePress(driver)}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -52,5 +64,6 @@ const Styles = StyleSheet.create({
   container: {
     alignContent: "center",
     margin: 37,
+    width: 15
   },
 });

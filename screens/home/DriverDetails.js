@@ -10,8 +10,11 @@ const DriverDetails = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.name}>{driver.name}</Text>
-        <Text style={styles.detail}>{driver.phone_number}</Text>
-        <Text style={styles.detail}>{driver.birthdate.seconds}</Text>
+        <Text style={styles.detail}>Address: {driver.address.street}, {driver.address.city}, {driver.address.state}, {driver.address.zip}</Text>
+        <Text style={styles.detail}>Phone Number: {driver.phone_number}</Text>
+        <Text style={styles.detail}>Permit Number: {driver.permit_number}</Text>
+        <Text style={styles.detail}>Permit Expiration: {new Date(driver.permit_expiration.seconds*1000).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}</Text>
+        <Text style={styles.detail}>Birthdate: {new Date(driver.birthdate.seconds*1000).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}</Text>
       </View>
     </View>
   );
