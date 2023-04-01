@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Login, Register, ForgotPassword } from "../screens";
 import { COLORS, ROUTES } from "../constants";
 import DrawerNavigator from "./DrawerNavigator";
-import DriverDetails from "../screens/home/DriverDetails";
+import HomeNavigator from "./HomeNavigator";
 
 const Stack = createStackNavigator();
 
@@ -21,12 +21,12 @@ function AuthNavigator() {
       <Stack.Screen name={ROUTES.LOGIN} component={Login} />
       <Stack.Screen name={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
       <Stack.Screen name={ROUTES.REGISTER} component={Register} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={ROUTES.DRIVERS}
         component={DrawerNavigator}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen name="DriverDetails" component={DriverDetails} />
+      /> */}
+      <Stack.Screen name="Home" component={HomeNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 }

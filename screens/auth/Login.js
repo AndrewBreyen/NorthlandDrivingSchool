@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 import { ROUTES } from "../../constants";
 import styles from "../../constants/styles";
+import HomeNavigator from "../../navigators/HomeNavigator";
 
 const Login = (props) => {
   const { navigation } = props;
@@ -62,7 +63,9 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, "a@a.com", "qwerty")
       .then((userCredentials) => {
         const user = userCredentials.user;
-        navigation.navigate(ROUTES.DRIVERS);
+        navigation.navigate("Home", {
+          screen: "Drivers",
+        });
       })
       .catch((error) => {
         alert(error.message);

@@ -6,19 +6,24 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { React, useEffect, useState } from "react";
 import { db } from "../../firebase";
-import styles from "../../constants/styles";
 import COLORS from "../../constants/colors";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import DriverCard from "../../components/DriverCard";
 
 const Drivers = () => {
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const [drivers, setDrivers] = useState([]);
   const driversCollectionRef = collection(db, "drivers");
+
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
 
   const fetchDrivers = async () => {
     await getDocs(collection(db, "drivers")).then((querySnapshot) => {
@@ -31,22 +36,33 @@ const Drivers = () => {
     });
   };
 
-  useEffect(() => {
-    fetchDrivers();
-  }, []);
-
   const handlePress = (driver) => {
-    navigation.navigate("DriverDetails", { driver });
+    navigation.navigate("Home", {
+      screen: "DriverDetails",
+      params: { driver },
+    });
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchDrivers();
+    setRefreshing(false);
   };
 
   return (
-    <View style={styles.container}>
+    <View style={Styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color={COLORS.primary}/>
+        <ActivityIndicator size="large" color={COLORS.primary} />
       ) : (
-        <ScrollView>
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 20 }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
+        >
           {drivers.map((driver) => (
-            <DriverCard style={styles.container}
+            <DriverCard
+              style={Styles.container}
               key={driver.id}
               driver={driver}
               onPress={() => handlePress(driver)}
@@ -62,8 +78,6 @@ export default Drivers;
 
 const Styles = StyleSheet.create({
   container: {
-    alignContent: "center",
-    margin: 37,
-    width: 15
+    flex: 1,
   },
 });

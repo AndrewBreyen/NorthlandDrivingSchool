@@ -14,6 +14,9 @@ import { addDoc, collection } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../constants";
 import Checkbox from "expo-checkbox";
+import { db } from "../../firebase";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-datepicker";
 
 const AddNewDriver = () => {
   const navigation = useNavigation();
@@ -21,18 +24,18 @@ const AddNewDriver = () => {
   const [name, setName] = useState("");
   const [phone_number, set_phone_number] = useState("");
   const [address, set_address] = useState("");
-  const [birthdate, set_birthdate] = useState("");
+  const [birthdate, set_birthdate] = useState(null);
   const [permit_number, set_permit_number] = useState("");
-  const [permit_expiration, set_permit_expiration] = useState("");
+  const [permit_expiration, set_permit_expiration] = useState(new Date());
   const [restrictions, set_restrictions] = useState("");
   const [total_hours, set_total_hours] = useState("");
   const [notes, set_notes] = useState("");
   const [white_card_given, set_white_card_given] = useState(false);
-  const [lesson_1_date, set_lesson_1_date] = useState("");
+  const [lesson_1_date, set_lesson_1_date] = useState(new Date());
   const [lesson_1_amount_paid, set_lesson_1_amount_paid] = useState("");
-  const [lesson_2_date, set_lesson_2_date] = useState("");
+  const [lesson_2_date, set_lesson_2_date] = useState(new Date());
   const [lesson_2_amount_paid, set_lesson_2_amount_paid] = useState("");
-  const [lesson_3_date, set_lesson_3_date] = useState("");
+  const [lesson_3_date, set_lesson_3_date] = useState(new Date());
   const [lesson_3_amount_paid, set_lesson_3_amount_paid] = useState("");
 
   const setChecked = () => {
@@ -40,6 +43,11 @@ const AddNewDriver = () => {
   };
 
   const handleSubmit = async () => {
+    if (!name || !phone_number || !address) {
+      // the name, phone number, and address fields are required
+      alert("Please fill out all required fields.");
+      return;
+    }
     const newDriver = {
       name,
       phone_number,
@@ -108,8 +116,8 @@ const AddNewDriver = () => {
           <Text style={styles.label}>Birthdate:</Text>
           <TextInput
             style={styles.input}
-            placeholder="MM/DD/YYYY"
-            value={birthdate}
+            placeholder="Enter birthdate (MM/DD/YYYY)"
+            value={address}
             onChangeText={set_birthdate}
           />
         </View>
@@ -126,9 +134,9 @@ const AddNewDriver = () => {
           <Text style={styles.label}>Permit Expiration:</Text>
           <TextInput
             style={styles.input}
-            placeholder="MM/DD/YYYY"
-            value={permit_expiration}
-            onChangeText={set_permit_expiration}
+            placeholder="Enter permit expiration date (MM/DD/YYYY)"
+            value={address}
+            onChangeText={set_birthdate}
           />
         </View>
         <View style={styles.formGroup}>
@@ -171,12 +179,12 @@ const AddNewDriver = () => {
           </View>
         </View>
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Lesson 1 Date:</Text>
+        <Text style={styles.label}>Lesson 1 Date:</Text>
           <TextInput
             style={styles.input}
-            placeholder="MM/DD/YYYY"
-            value={lesson_1_date}
-            onChangeText={set_lesson_1_date}
+            placeholder="Enter lesson 1 date (MM/DD/YYYY)"  
+            value={address}
+            onChangeText={set_birthdate}
           />
         </View>
         <View style={styles.formGroup}>
@@ -192,8 +200,8 @@ const AddNewDriver = () => {
           <Text style={styles.label}>Lesson 2 Date:</Text>
           <TextInput
             style={styles.input}
-            placeholder="MM/DD/YYYY"
-            value={lesson_2_date}
+            placeholder="Enter Lesson 2 Date (MM/DD/YYYY)"
+            value={address}
             onChangeText={set_lesson_2_date}
           />
         </View>
@@ -207,11 +215,11 @@ const AddNewDriver = () => {
           />
         </View>
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Lesson 3 Date:</Text>
+        <Text style={styles.label}>Lesson 3 Date:</Text>
           <TextInput
             style={styles.input}
-            placeholder="MM/DD/YYYY"
-            value={lesson_3_date}
+            placeholder="Enter Lesson 3 Date (MM/DD/YYYY)"
+            value={address}
             onChangeText={set_lesson_3_date}
           />
         </View>
@@ -261,6 +269,7 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
+    marginLeft: 20,
   },
   checkboxLabel: {
     margin: 8,
